@@ -1,0 +1,28 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { php: '8.2', laravel: '12', testbench: '10' }
+          - { php: '8.4', laravel: '12', testbench: '10' }
+          - { php: '8.3', laravel: '13', testbench: '11' }
+          - { php: '8.4', laravel: '13', testbench: '11' }
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php: ${{ matrix.php }}
+          coverage: none
+      - run: composer require --no-update "illuminate/http:^${{ matrix.laravel }}.0" "illuminate/support:^${{ matrix.laravel }}.0"
+      - run: composer require --dev --no-update "orchestra/testbench:^${{ matrix.testbench }}.0"
+      - run: composer update --prefer-dist --no-interaction --no-progress
+      - run: vendor/bin/phpunit

@@ -1,0 +1,44 @@
+{
+    "name": "konekqr/laravel",
+    "description": "Konek QR API client, facade and webhook verification middleware for Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://konekqr.web.id/developers",
+    "keywords": ["konekqr", "qris", "laravel", "payments", "webhooks"],
+    "require": {
+        "php": "^8.2",
+        "illuminate/http": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0|^11.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "KonekQR\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KonekQR\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KonekQR\\Laravel\\KonekQRServiceProvider"
+            ],
+            "aliases": {
+                "KonekQR": "KonekQR\\Laravel\\Facades\\KonekQR"
+            }
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}
