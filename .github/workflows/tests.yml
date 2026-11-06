@@ -17,12 +17,13 @@ jobs:
           - { php: '8.4', laravel: '13', testbench: '11' }
     name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: shivammathur/setup-php@v2
         with:
-          php: ${{ matrix.php }}
+          php-version: ${{ matrix.php }}
           coverage: none
       - run: composer require --no-update "illuminate/http:^${{ matrix.laravel }}.0" "illuminate/support:^${{ matrix.laravel }}.0"
       - run: composer require --dev --no-update "orchestra/testbench:^${{ matrix.testbench }}.0"
       - run: composer update --prefer-dist --no-interaction --no-progress
+      - run: php -v && composer show laravel/framework | grep versions
       - run: vendor/bin/phpunit
